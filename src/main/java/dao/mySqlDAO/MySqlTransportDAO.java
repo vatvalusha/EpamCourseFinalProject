@@ -19,8 +19,12 @@ public class MySqlTransportDAO implements TransportDAO {
     Connection connection = dbConnection.getConnection();
     MySqlTypeDAO mySqlTypeDAO = new MySqlTypeDAO();
     public static final String sqlGetTransport = "Select * FROM transport";
-    public static final String sqlAddNewTransport = "INSERT INTO  transport(number_bus, capacity, modelRu, modelEn,id_type)VALUE (?,?,?,?,?)";
+    public static final String sqlAddNewTransport = "INSERT INTO  transport(route_id,number_bus,capacity,modelRu,modelEn,id_type)VALUE (?,?,?,?,?,?)";
     public static final String sqlDeleteTransportOnId = "DELETE FROM transport WHERE id = ?";
+    public static final String sqlFindWhereRouteIdNull = "SELECT * FROM transport WHERE route_id is null";
+    public static final String sqlFindTransportByRouteId = "SELECT * FROM transport WHERE route_id = ?";
+    private static final String sqlUpdateRouteByIdTransport = "UPDATE transport set route_id = ? WHERE id = ?";
+    private static final String sqlRemoveTransportFromRoute = "UPDATE transport set route_id = null WHERE id = ?";
 
 
     /**
@@ -30,11 +34,11 @@ public class MySqlTransportDAO implements TransportDAO {
     @Override
     public Transport getTransport(int transportId) {
         List<Transport> transports = getAllTransports();
-        for(Transport transport : transports){
-            if(transportId == transport.getID_TRANSPORT())
+        for (Transport transport : transports) {
+            if (transportId == transport.getID_TRANSPORT())
                 return transport;
         }
-        return  null;
+        return null;
 
     }
 
@@ -45,8 +49,8 @@ public class MySqlTransportDAO implements TransportDAO {
     public List<Transport> getAllTransports() {
         connection = dbConnection.getConnection();
         List<Transport> transport = new ArrayList<>();
-        try(PreparedStatement preparedStatement = connection.prepareStatement(sqlGetTransport);
-            ResultSet resultSet = preparedStatement.executeQuery()) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlGetTransport);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 transport.add(map(resultSet));
             }
@@ -57,11 +61,30 @@ public class MySqlTransportDAO implements TransportDAO {
         return transport;
     }
 
+    /**
+     * @param routeId
+     * @return
+     * @throws SQLException
+     */
     @Override
-    public List<Transport> getRouteTransports(int routeId) {
-
-
-        return null;
+    public List<Transport> getRouteTransports(int routeId) throws SQLException {
+        if (routeId == 0) return getZeroTransportUnits();
+        connection = dbConnection.getConnection();
+        List<Transport> transports = new ArrayList<Transport>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlFindTransportByRouteId)) {
+            preparedStatement.setInt(1, routeId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                transports.add(map(resultSet));
+            }
+        } catch (SQLException ex) {
+//            LOG.warn("was caused an exception during query executing");
+            ex.printStackTrace();
+        } finally {
+            connection.close();
+        }
+//        LOG.info("list of units from route " + routeId + " was formed");
+        return transports;
     }
 
     /**
@@ -72,11 +95,12 @@ public class MySqlTransportDAO implements TransportDAO {
     public void addNewTransport(Transport transport) throws SQLException {
         connection = dbConnection.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlAddNewTransport)) {
-            preparedStatement.setInt(1, transport.getNumberTransport());
-            preparedStatement.setInt(2, transport.getCapacity());
-            preparedStatement.setString(3, transport.getMODEL_NAME_RU());
-            preparedStatement.setString(4, transport.getMODEL_NAME_EN());
-            preparedStatement.setInt(5, transport.getTypeTransport().getID_TYPE());
+            preparedStatement.setInt(1, transport.getIdRoute());
+            preparedStatement.setInt(2, transport.getNumberTransport());
+            preparedStatement.setInt(3, transport.getCapacity());
+            preparedStatement.setString(4, transport.getMODEL_NAME_RU());
+            preparedStatement.setString(5, transport.getMODEL_NAME_EN());
+            preparedStatement.setInt(6, transport.getTypeTransport().getID_TYPE());
             preparedStatement.executeUpdate();
         } finally {
             if (connection != null) {
@@ -86,8 +110,43 @@ public class MySqlTransportDAO implements TransportDAO {
     }
 
     @Override
-    public int addTransportOnRoute(int transportId, int routeId) {
-        return 0;
+    public void addTransportOnRoute(int transportId, int routeId) throws SQLException {
+        connection = dbConnection.getConnection();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdateRouteByIdTransport)) {
+            preparedStatement.setInt(1, routeId);
+            preparedStatement.setInt(2, transportId);
+            int result = preparedStatement.executeUpdate();
+//            LOG.info("unit " + transportId + " was assigned to route" + routeId + " with result " + result);
+        } catch (SQLException ex) {
+//            LOG.warn("was caused an exception during query executing");
+            ex.printStackTrace();
+
+        } finally {
+            connection.close();
+        }
+
+    }
+
+    /**
+     * @return
+     * @throws SQLException
+     */
+    private List<Transport> getZeroTransportUnits() throws SQLException {
+        connection = dbConnection.getConnection();
+        List<Transport> transports = new ArrayList<Transport>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlFindWhereRouteIdNull);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                transports.add(map(resultSet));
+            }
+        } catch (SQLException ex) {
+//            LOG.warn("was caused an exception during query executing");
+            ex.printStackTrace();
+        } finally {
+            connection.close();
+        }
+//        LOG.info("list of units from route zero was formed");
+        return transports;
     }
 
     /**
@@ -96,7 +155,7 @@ public class MySqlTransportDAO implements TransportDAO {
     @Override
     public void removeTransport(int transportId) {
         Transport transport = new Transport(transportId);
-        if(transport == null)
+        if (transport == null)
             return;
         connection = dbConnection.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlDeleteTransportOnId)) {
@@ -108,19 +167,31 @@ public class MySqlTransportDAO implements TransportDAO {
     }
 
     @Override
-    public void removeFromRouteTransport(int transportId) {
+    public void removeFromRouteTransport(int transportId) throws SQLException {
+        connection = dbConnection.getConnection();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlRemoveTransportFromRoute)) {
+            preparedStatement.setInt(1, transportId);
+            preparedStatement.executeUpdate();
+            int result = preparedStatement.executeUpdate();
+//            LOG.info("unit " + transportId + " was assigned to route null with result " + result);
+        } catch (SQLException ex) {
+//            LOG.warn("was caused an exception during query executing");
+            ex.printStackTrace();
+
+        } finally {
+            connection.close();
+        }
 
     }
 
     /**
      * @param resultSet
      * @return
-     * @throws SQLException
-     * method witch create new Object for transport
+     * @throws SQLException method witch create new Object for transport
      */
     private Transport map(ResultSet resultSet) throws SQLException {
-        return new Transport(resultSet.getInt(1),resultSet.getInt(3),resultSet.getInt(4),
-                resultSet.getString(5),resultSet.getString(6),
-                mySqlTypeDAO.getConcreteType(resultSet.getInt(7)),resultSet.getInt(2));
+        return new Transport(resultSet.getInt(1), resultSet.getInt(3), resultSet.getInt(4),
+                resultSet.getString(5), resultSet.getString(6),
+                mySqlTypeDAO.getConcreteType(resultSet.getInt(7)), resultSet.getInt(2));
     }
 }

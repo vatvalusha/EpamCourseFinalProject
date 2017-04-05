@@ -14,15 +14,15 @@ public interface TransportDAO {
 
     List<Transport> getAllTransports();
 
-    List<Transport> getRouteTransports(int routeId);
+    List<Transport> getRouteTransports(int routeId) throws SQLException;
 
     void addNewTransport(Transport transport) throws SQLException;
 
-    int addTransportOnRoute(int transportId, int routeId);
+    void addTransportOnRoute(int transportId,int routeId) throws SQLException;
 
     void removeTransport(int transportId);
 
-    void removeFromRouteTransport(int transportId);
+    void removeFromRouteTransport(int transportId) throws SQLException;
 
 
 
