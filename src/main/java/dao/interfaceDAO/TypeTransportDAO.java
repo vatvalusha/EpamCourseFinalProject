@@ -1,6 +1,5 @@
 package dao.interfaceDAO;
 
-import entity.TransportType;
 import entity.TypeTransport;
 
 import java.sql.SQLException;

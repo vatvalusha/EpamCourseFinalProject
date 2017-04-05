@@ -1,6 +1,6 @@
 package dao.mySqlDAO;
 
-import dao.DBConnection;
+import dao.factory.DBConnection;
 import dao.interfaceDAO.AbstractStopDAO;
 import dao.interfaceDAO.StopDAO;
 import entity.Stop;

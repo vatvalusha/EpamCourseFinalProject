@@ -14,7 +14,7 @@ public class Route {
 
     private String name_route_en;
 
-    private Transport transport;
+    private TypeTransport typeTransport;
 
     private List<Stop> stopList;
 
@@ -36,18 +36,18 @@ public class Route {
      * @param name_route_en - String Russian route name
      *
      */
-    public Route(int routeId, String name_route_ru, String name_route_en, Transport transport) {
+    public Route(int routeId, String name_route_ru, String name_route_en, TypeTransport typeTransport) {
         this.routeId = routeId;
         this.name_route_ru = name_route_ru;
         this.name_route_en = name_route_en;
-        this.transport = transport;
+        this.typeTransport = typeTransport;
         transportList = new ArrayList<>();
         stopList = new ArrayList<>();
     }
-    public Route(Transport transport,String name_route_ru, String name_route_en) {
+    public Route(TypeTransport typeTransport,String name_route_ru, String name_route_en) {
         this.name_route_ru = name_route_ru;
         this.name_route_en = name_route_en;
-        this.transport = transport;
+        this.typeTransport = typeTransport;
         transportList = new ArrayList<>();
         stopList = new ArrayList<>();
     }
@@ -73,8 +73,8 @@ public class Route {
         return transportList;
     }
 
-    public Transport getTransport() {
-        return transport;
+    public TypeTransport getTypeTransport() {
+        return typeTransport;
     }
 
     //Setters
@@ -110,7 +110,7 @@ public class Route {
                 "routeId=" + routeId +
                 ", name_route_ru='" + name_route_ru + '\'' +
                 ", name_route_en='" + name_route_en + '\'' +
-                ", transport=" + transport +
+                ", typeTransport=" + typeTransport +
                 '}';
     }
 }

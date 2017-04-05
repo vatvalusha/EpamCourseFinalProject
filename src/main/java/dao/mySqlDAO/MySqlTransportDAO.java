@@ -1,8 +1,7 @@
 package dao.mySqlDAO;
 
-import dao.DBConnection;
+import dao.factory.DBConnection;
 import dao.interfaceDAO.TransportDAO;
-import entity.Stop;
 import entity.Transport;
 
 import java.sql.Connection;
@@ -120,8 +119,8 @@ public class MySqlTransportDAO implements TransportDAO {
      * method witch create new Object for transport
      */
     private Transport map(ResultSet resultSet) throws SQLException {
-        return new Transport(resultSet.getInt(1),resultSet.getInt(2),resultSet.getInt(3),
-                resultSet.getString(4),resultSet.getString(5),
-                mySqlTypeDAO.getConcreteType(resultSet.getInt(6)));
+        return new Transport(resultSet.getInt(1),resultSet.getInt(3),resultSet.getInt(4),
+                resultSet.getString(5),resultSet.getString(6),
+                mySqlTypeDAO.getConcreteType(resultSet.getInt(7)),resultSet.getInt(2));
     }
 }

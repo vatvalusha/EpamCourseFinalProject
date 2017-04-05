@@ -1,11 +1,8 @@
-import dao.DBConnection;
 import dao.mySqlDAO.*;
 import entity.*;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by valeriyartemenko on 25.03.17.
@@ -19,11 +16,11 @@ public class MainTest {
    public static MySqlRouteDAO mySqlRouteDAO = new MySqlRouteDAO();
 
     public static void main(String[] args) throws SQLException {
-        showAllRoutes();
-        mySqlRouteDAO.removeRoute(5);
-        System.out.println();
-        showAllRoutes();
+//        showAllRoutes();
+            showAllTransport();
+
     }
+
 
     public static void showAllRoutes() throws SQLException {
         List<Route> routes = mySqlRouteDAO.getAllRoutes();

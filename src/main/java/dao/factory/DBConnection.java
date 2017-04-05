@@ -1,4 +1,7 @@
-package dao;
+package dao.factory;
+
+import dao.interfaceDAO.*;
+import dao.mySqlDAO.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +10,7 @@ import java.sql.SQLException;
 /**
  * Created by valeriyartemenko on 25.03.17.
  */
-public class DBConnection {
+public class DBConnection extends DAOFactory {
 
     // JDBC driver name and database URL
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -30,6 +33,31 @@ public class DBConnection {
         }
 
         return connection;
+    }
+
+    @Override
+    public TransportDAO getTransportUnitsDao() {
+        return new MySqlTransportDAO();
+    }
+
+    @Override
+    public RouteDAO getRouteDao() {
+        return new MySqlRouteDAO();
+    }
+
+    @Override
+    public StopDAO getStopsDao() {
+        return new MySqlStopDAO();
+    }
+
+    @Override
+    public GeoPointDAO geoPointDAO() {
+        return new MySqlGeoPointDAO();
+    }
+
+    @Override
+    public TypeTransportDAO getTypeTransportDAO() {
+        return new MySqlTypeDAO();
     }
 
 }

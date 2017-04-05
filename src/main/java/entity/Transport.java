@@ -15,6 +15,8 @@ public class Transport {
 
     private int capacity;
 
+    private int idRoute;
+
     private TypeTransport typeTransport;
 
 
@@ -28,14 +30,13 @@ public class Transport {
      * @param MODEL_NAME_EN
 //     * @param transportType
      */
-    public Transport(int ID_TRANSPORT, int numberTransport, int capacity,String MODEL_NAME_RU, String MODEL_NAME_EN, TypeTransport typeTransport) {
+    public Transport(int ID_TRANSPORT, int numberTransport, int capacity,String MODEL_NAME_RU, String MODEL_NAME_EN, TypeTransport typeTransport, int idRoute) {
         this.ID_TRANSPORT = ID_TRANSPORT;
         this.numberTransport = numberTransport;
         this.MODEL_NAME_RU = MODEL_NAME_RU;
         this.MODEL_NAME_EN = MODEL_NAME_EN;
         this.capacity = capacity;
-//        this.transportType = transportType;
-//        this.idRoute = idRoute;
+        this.idRoute = idRoute;
         this.typeTransport = typeTransport;
     }
     public Transport(int numberTransport, int capacity,String MODEL_NAME_RU, String MODEL_NAME_EN, TypeTransport typeTransport) {

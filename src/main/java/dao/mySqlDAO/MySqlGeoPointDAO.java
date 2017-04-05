@@ -1,9 +1,8 @@
 package dao.mySqlDAO;
 
-import dao.DBConnection;
+import dao.factory.DBConnection;
 import dao.interfaceDAO.GeoPointDAO;
 import entity.GeoPoint;
-import entity.Stop;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
