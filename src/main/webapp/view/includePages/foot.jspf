@@ -1,0 +1,7 @@
+<%--========== Footer (bottom area). ================================--%>
+<hr>
+<table>
+    <tr>
+        <td id="footer">&copy;City Transport System. 2017. Artemenko Valerii.</td>
+    </tr>
+</table>

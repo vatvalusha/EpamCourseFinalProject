@@ -40,11 +40,11 @@ public class Route {
         this.routeId = routeId;
         this.name_route_ru = name_route_ru;
         this.name_route_en = name_route_en;
-        this.typeTransport = typeTransport;
+        this.typeTransport =typeTransport;
         transportList = new ArrayList<>();
         stopList = new ArrayList<>();
     }
-    public Route(TypeTransport typeTransport,String name_route_ru, String name_route_en) {
+    public Route(String name_route_ru, String name_route_en, TypeTransport typeTransport) {
         this.name_route_ru = name_route_ru;
         this.name_route_en = name_route_en;
         this.typeTransport = typeTransport;
@@ -64,6 +64,7 @@ public class Route {
     public String getName_route_en() {
         return name_route_en;
     }
+
 
     public List<Stop> getStopList() {
         return stopList;

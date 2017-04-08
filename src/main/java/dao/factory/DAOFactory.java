@@ -28,7 +28,7 @@ public abstract class DAOFactory {
 
     public abstract Connection getConnection() throws SQLException;
 
-    public abstract TransportDAO getTransportUnitsDao();
+    public abstract TransportDAO getTransportDao();
 
     public abstract RouteDAO getRouteDao();
 

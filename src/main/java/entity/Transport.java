@@ -39,13 +39,12 @@ public class Transport {
         this.idRoute = idRoute;
         this.typeTransport = typeTransport;
     }
-    public Transport(int numberTransport, int capacity,String MODEL_NAME_RU, String MODEL_NAME_EN, TypeTransport typeTransport) {
+    public Transport(int numberTransport, int capacity,String MODEL_NAME_RU, String MODEL_NAME_EN, TypeTransport typeTransport, int idRoute) {
         this.numberTransport = numberTransport;
         this.MODEL_NAME_RU = MODEL_NAME_RU;
         this.MODEL_NAME_EN = MODEL_NAME_EN;
         this.capacity = capacity;
-//        this.transportType = transportType;
-//        this.idRoute = idRoute;
+        this.idRoute = idRoute;
         this.typeTransport = typeTransport;
     }
     public Transport(int idTransport){
@@ -76,6 +75,10 @@ public class Transport {
 
     public TypeTransport getTypeTransport() {
         return typeTransport;
+    }
+
+    public int getIdRoute() {
+        return idRoute;
     }
 
     @Override

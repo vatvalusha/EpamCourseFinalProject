@@ -36,7 +36,7 @@ public class DBConnection extends DAOFactory {
     }
 
     @Override
-    public TransportDAO getTransportUnitsDao() {
+    public TransportDAO getTransportDao() {
         return new MySqlTransportDAO();
     }
 

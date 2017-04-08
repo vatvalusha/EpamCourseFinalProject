@@ -22,10 +22,8 @@ public interface StopDAO {
     void makeOperationInStopWithRoute(int idStop, int idRoute, String sql, Connection connection) throws SQLException;
 
     void removeStopFromRoute(int idStop, int idRoute) throws SQLException;
-//    void removeStopFromRoute(int idStop, int idRoute, String sql, Connection connection) throws SQLException;
 
     void assignStopOnRoute(int stopId, int routeId) throws SQLException;
-//    void assignStopOnRoute(int idStop, int idRoute, String sql, Connection connection) throws SQLException;
 
     List<Stop> getRoutStops(int idRoute) throws SQLException;
 

@@ -11,171 +11,60 @@
     <schema id="5" parent="1" name="mysql"/>
     <schema id="6" parent="1" name="performance_schema"/>
     <schema id="7" parent="1" name="test"/>
-    <table id="8" parent="2" name="geo_point"/>
-    <table id="9" parent="2" name="route"/>
-    <table id="10" parent="2" name="route_with_stop"/>
-    <table id="11" parent="2" name="stops"/>
-    <table id="12" parent="2" name="transport"/>
-    <table id="13" parent="2" name="type_transport"/>
-    <column id="14" parent="8" name="id">
+    <schema id="8" parent="1" name="city_transport_db"/>
+    <table id="9" parent="2" name="geo_point"/>
+    <table id="10" parent="2" name="route"/>
+    <table id="11" parent="2" name="route_with_stop"/>
+    <table id="12" parent="2" name="stops"/>
+    <table id="13" parent="2" name="transport"/>
+    <table id="14" parent="2" name="type_transport"/>
+    <column id="15" parent="9" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="15" parent="8" name="latitude">
+    <column id="16" parent="9" name="latitude">
       <Position>2</Position>
       <DataType>double|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="16" parent="8" name="longtude">
+    <column id="17" parent="9" name="longtude">
       <Position>3</Position>
       <DataType>double|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="17" parent="8" name="PRIMARY">
+    <key id="18" parent="9" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="18" parent="9" name="id">
+    <column id="19" parent="10" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="19" parent="9" name="id_transport">
+    <column id="20" parent="10" name="name_route_ru">
       <Position>2</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
+      <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="20" parent="9" name="name_route_ru">
+    <column id="21" parent="10" name="name_route_en">
       <Position>3</Position>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="21" parent="9" name="name_route_en">
-      <Position>4</Position>
-      <DataType>varchar(50)|0</DataType>
-    </column>
-    <index id="22" parent="9" name="id_transport">
-      <ColNames>id_transport</ColNames>
-    </index>
-    <key id="23" parent="9" name="PRIMARY">
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="24" parent="9" name="route_ibfk_1">
-      <ColNames>id_transport</ColNames>
-      <RefSchemaName>epam3</RefSchemaName>
-      <RefTableName>transport</RefTableName>
-      <RefColNames>id</RefColNames>
-      <OnUpdate>update</OnUpdate>
-      <OnDelete>delete</OnDelete>
-    </foreign-key>
-    <column id="25" parent="10" name="id_stop">
-      <Position>1</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="26" parent="10" name="id_route">
-      <Position>2</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <index id="27" parent="10" name="id_route">
-      <ColNames>id_route</ColNames>
-    </index>
-    <index id="28" parent="10" name="id_stop">
-      <ColNames>id_stop</ColNames>
-    </index>
-    <foreign-key id="29" parent="10" name="route_with_stop_ibfk_1">
-      <ColNames>id_stop</ColNames>
-      <RefSchemaName>epam3</RefSchemaName>
-      <RefTableName>stops</RefTableName>
-      <RefColNames>id</RefColNames>
-      <OnUpdate>update</OnUpdate>
-      <OnDelete>delete</OnDelete>
-    </foreign-key>
-    <foreign-key id="30" parent="10" name="route_with_stop_ibfk_2">
-      <ColNames>id_route</ColNames>
-      <RefSchemaName>epam3</RefSchemaName>
-      <RefTableName>route</RefTableName>
-      <RefColNames>id</RefColNames>
-      <OnUpdate>update</OnUpdate>
-      <OnDelete>delete</OnDelete>
-    </foreign-key>
-    <column id="31" parent="11" name="id">
-      <Position>1</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-    </column>
-    <column id="32" parent="11" name="name_stop_ru">
-      <Position>2</Position>
-      <DataType>varchar(30)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="33" parent="11" name="name_stop_en">
-      <Position>3</Position>
-      <DataType>varchar(30)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="34" parent="11" name="id_geopoint">
+    <column id="22" parent="10" name="id_type">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="35" parent="11" name="id_geopoint">
-      <ColNames>id_geopoint</ColNames>
-    </index>
-    <key id="36" parent="11" name="PRIMARY">
-      <ColNames>id</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <foreign-key id="37" parent="11" name="stops_ibfk_1">
-      <ColNames>id_geopoint</ColNames>
-      <RefSchemaName>epam3</RefSchemaName>
-      <RefTableName>geo_point</RefTableName>
-      <RefColNames>id</RefColNames>
-    </foreign-key>
-    <column id="38" parent="12" name="id">
-      <Position>1</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-    </column>
-    <column id="39" parent="12" name="number_bus">
-      <Position>2</Position>
-      <DataType>int(3)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="40" parent="12" name="capacity">
-      <Position>3</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="41" parent="12" name="modelRu">
-      <Position>4</Position>
-      <DataType>varchar(30)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="42" parent="12" name="modelEn">
-      <Position>5</Position>
-      <DataType>varchar(30)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="43" parent="12" name="id_type">
-      <Position>6</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <index id="44" parent="12" name="id_type">
+    <index id="23" parent="10" name="id_type">
       <ColNames>id_type</ColNames>
     </index>
-    <key id="45" parent="12" name="PRIMARY">
+    <key id="24" parent="10" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="46" parent="12" name="transport_ibfk_1">
+    <foreign-key id="25" parent="10" name="route_ibfk_1">
       <ColNames>id_type</ColNames>
       <RefSchemaName>epam3</RefSchemaName>
       <RefTableName>type_transport</RefTableName>
@@ -183,18 +72,163 @@
       <OnUpdate>update</OnUpdate>
       <OnDelete>delete</OnDelete>
     </foreign-key>
-    <column id="47" parent="13" name="id">
+    <column id="26" parent="11" name="id_stop">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="27" parent="11" name="id_route">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="11" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="48" parent="13" name="type_transport">
+    <column id="29" parent="11" name="order_by_route">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="30" parent="11" name="id_route">
+      <ColNames>id_route</ColNames>
+    </index>
+    <index id="31" parent="11" name="id_stop">
+      <ColNames>id_stop</ColNames>
+    </index>
+    <key id="32" parent="11" name="PRIMARY">
+      <ColNames>id
+id_stop
+id_route</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="33" parent="11" name="route_with_stop_ibfk_1">
+      <ColNames>id_stop</ColNames>
+      <RefSchemaName>epam3</RefSchemaName>
+      <RefTableName>stops</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>no-action</OnUpdate>
+      <OnDelete>delete</OnDelete>
+    </foreign-key>
+    <foreign-key id="34" parent="11" name="route_with_stop_ibfk_2">
+      <ColNames>id_route</ColNames>
+      <RefSchemaName>epam3</RefSchemaName>
+      <RefTableName>route</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>no-action</OnUpdate>
+      <OnDelete>delete</OnDelete>
+    </foreign-key>
+    <column id="35" parent="12" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="36" parent="12" name="name_stop_ru">
       <Position>2</Position>
       <DataType>varchar(30)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="49" parent="13" name="PRIMARY">
+    <column id="37" parent="12" name="name_stop_en">
+      <Position>3</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="38" parent="12" name="id_geopoint">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="39" parent="12" name="id_geopoint">
+      <ColNames>id_geopoint</ColNames>
+    </index>
+    <key id="40" parent="12" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="41" parent="12" name="stops_ibfk_1">
+      <ColNames>id_geopoint</ColNames>
+      <RefSchemaName>epam3</RefSchemaName>
+      <RefTableName>geo_point</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="42" parent="13" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="43" parent="13" name="number_bus">
+      <Position>3</Position>
+      <DataType>int(3)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="44" parent="13" name="capacity">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="45" parent="13" name="modelRu">
+      <Position>5</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="46" parent="13" name="modelEn">
+      <Position>6</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="47" parent="13" name="id_type">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="48" parent="13" name="route_id">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="49" parent="13" name="id_type">
+      <ColNames>id_type</ColNames>
+    </index>
+    <index id="50" parent="13" name="route_id">
+      <ColNames>route_id</ColNames>
+    </index>
+    <key id="51" parent="13" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="52" parent="13" name="transport_ibfk_2">
+      <ColNames>route_id</ColNames>
+      <RefSchemaName>epam3</RefSchemaName>
+      <RefTableName>route</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>no-action</OnUpdate>
+      <OnDelete>delete</OnDelete>
+    </foreign-key>
+    <foreign-key id="53" parent="13" name="transport_ibfk_1">
+      <ColNames>id_type</ColNames>
+      <RefSchemaName>epam3</RefSchemaName>
+      <RefTableName>type_transport</RefTableName>
+      <RefColNames>id</RefColNames>
+      <OnUpdate>update</OnUpdate>
+      <OnDelete>delete</OnDelete>
+    </foreign-key>
+    <column id="54" parent="14" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="55" parent="14" name="type_transport">
+      <Position>2</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="56" parent="14" name="PRIMARY">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>

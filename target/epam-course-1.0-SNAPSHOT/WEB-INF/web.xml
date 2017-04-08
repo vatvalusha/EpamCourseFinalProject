@@ -6,13 +6,22 @@
 
 
 
+
+    <context-param>
+        <param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+        <param-value>resources</param-value>
+    </context-param>
+    <context-param>
+        <param-name>locales</param-name>
+        <param-value>ru en</param-value>
+    </context-param>
     <servlet>
-        <servlet-name>firstApp</servlet-name>
-        <servlet-class>servlets.MyServlet</servlet-class>
+        <servlet-name>Controller</servlet-name>
+        <servlet-class>servlets.Controller</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>firstApp</servlet-name>
-        <url-pattern>/hello</url-pattern>
+        <servlet-name>Controller</servlet-name>
+        <url-pattern>/pages/*</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>

@@ -1,5 +1,7 @@
+import dao.factory.DAOFactory;
 import dao.mySqlDAO.*;
 import entity.*;
+import servlets.Commands.SoursceDaoFactory;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -16,16 +18,24 @@ public class MainTest {
    public static MySqlRouteDAO mySqlRouteDAO = new MySqlRouteDAO();
 
     public static void main(String[] args) throws SQLException {
-//        showAllRoutes();
-            showAllTransport();
-
+        DAOFactory daoFactory = SoursceDaoFactory.getDAOFactory();
+        List<Stop> allStops = daoFactory.getStopsDao().getRoutStops(1);
+        System.out.println(allStops);
+        List<Transport> transports = daoFactory.getTransportDao().getRouteTransports(2);
+        System.out.println(transports);
     }
 
 
     public static void showAllRoutes() throws SQLException {
         List<Route> routes = mySqlRouteDAO.getAllRoutes();
+        routes.get(0).getRouteId();
         for(Route route : routes)
             System.out.println(route.toString());
+    }
+    public static void showRoutesOnTransport(int id) throws SQLException {
+        List<Transport> transports = mySqlTransportDAO.getRouteTransports(id);
+        for(Transport transport : transports)
+            System.out.println(transport.toString());
     }
 
     public static void showAllTransport(){

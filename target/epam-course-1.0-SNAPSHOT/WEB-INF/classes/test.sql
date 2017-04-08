@@ -13,7 +13,7 @@ INSERT INTO route(id_transport, name_route_ru, name_route_en) VALUES (1,'Paladin
 
 DELETE FROM route WHERE id = ?;
 
-
+SELECT * FROM transport WHERE route_id is null;
 INSERT INTO route(id_transport, name_route_ru, name_route_en) VALUE (4,'Paladina','Paladina');
 ALTER TABLE route_with_stop DROP id;
 INSERT INTO geo_point(latitude, longtude) VALUES ('4567','473'),('1234','4746');
